@@ -73,23 +73,34 @@ const Index = () => {
         {/* Category Icons */}
         <div className="flex justify-center gap-6 mb-16 flex-wrap">
           {[
-            { icon: "🍽️", label: "Pratos" },
-            { icon: "🧁", label: "Doces" },
-            { icon: "🍹", label: "Bebidas" },
-            { icon: "☕", label: "Café" },
-            { icon: "🥤", label: "Sucos" },
-            { icon: "🥖", label: "Pães" },
+            { icon: "🍽️", label: "Pratos", category: "Pratos Principais" },
+            { icon: "🧁", label: "Doces", category: "Sobremesas" },
+            { icon: "🍹", label: "Bebidas", category: "Bebidas" },
+            { icon: "☕", label: "Café", category: "Café da Manhã" },
+            { icon: "🥤", label: "Sucos", category: "Sucos" },
+            { icon: "🥖", label: "Pães", category: "Pães" },
           ].map((item, index) => (
-            <div 
+            <button
               key={index}
-              className="flex flex-col items-center gap-2 animate-scale-in"
+              onClick={() => setSelectedCategory(item.category)}
+              className="flex flex-col items-center gap-2 animate-scale-in group"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-3xl md:text-4xl shadow-lg hover:scale-110 transition-transform cursor-pointer">
+              <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-3xl md:text-4xl shadow-lg transition-all duration-300 ${
+                selectedCategory === item.category
+                  ? "bg-gradient-to-br from-primary to-secondary scale-110 shadow-xl"
+                  : "bg-gradient-to-br from-secondary to-accent hover:scale-110 hover:shadow-xl"
+              }`}>
                 {item.icon}
               </div>
-              <span className="text-sm text-muted-foreground font-medium">{item.label}</span>
-            </div>
+              <span className={`text-sm font-medium transition-colors ${
+                selectedCategory === item.category
+                  ? "text-primary font-bold"
+                  : "text-muted-foreground group-hover:text-primary"
+              }`}>
+                {item.label}
+              </span>
+            </button>
           ))}
         </div>
       </section>
